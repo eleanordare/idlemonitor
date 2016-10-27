@@ -5,10 +5,13 @@ import hudson.model.AsyncPeriodicWork;
 import hudson.model.TaskListener;
 import jenkins.model.Jenkins;
 
+import org.joda.time.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.kohsuke.stapler.Stapler;
+import org.kohsuke.stapler.StaplerRequest;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -28,8 +31,7 @@ import java.util.Date;
 import javax.xml.bind.DatatypeConverter;
 
 /**
- *
- * PeriodicCheck is responsible for performing checks periodically
+ * Performs checks periodically to see if instance should be up and running
  */
 @Extension
 public class PeriodicCheck extends AsyncPeriodicWork {
@@ -38,11 +40,11 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         super("PeriodicCheck");
     }
 
-    final static Jenkins jenkins = Jenkins.getInstance();    
+    final static Jenkins jenkins = Jenkins.getActiveInstance();    
     final static String username = "admin";
 	final static String password = "admin";
-	
-	
+	final static Setup setup = new Setup();
+		
 	public static long getBusyExecutors() {
 			
 		System.setProperty("file.encoding", "UTF-8");
@@ -127,8 +129,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
             	dates.add(finalDate);
             }
             
-                       
-            return Collections.max(dates);            		
+            return Collections.max(dates);   
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -163,10 +164,13 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		Date latest = getLatestHit();
 		long busyExecutors = getBusyExecutors();
 		
-		Date arbitraryDate = new Date();
+		Period period = setup.getTimeoutPeriod();
 		
-		if (latest.before(arbitraryDate) && busyExecutors == 0) {
+		Period change = new Period(new DateTime(latest), new DateTime());
+		
+		if ((change.getSeconds() > period.getSeconds()) && busyExecutors == 0) {
 			System.out.println("sleepy time");
+			setup.shutdownJenkins();
 			return false;
 		}
 		else {
@@ -175,11 +179,12 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		
 		return true;
 	}
+	
+	
     
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
         
-    	
     	System.out.println("---------------------------------");
     	checkStatus();
     	System.out.println("---------------------------------");
@@ -187,16 +192,10 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     }
 
     
-    
-    
     @Override
     public long getRecurrencePeriod() {
         // Recurrence will happened every minute, but the action will be taken according to the cron settings
-        return MIN;
+        return setup.getPollingInterval();
     }
-
-    public static PeriodicCheck get() {
-        return AsyncPeriodicWork.all().get(PeriodicCheck.class);
-    }
-
+    
 }

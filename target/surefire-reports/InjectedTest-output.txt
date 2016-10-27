@@ -1,45 +1,102 @@
-Oct 26, 2016 5:44:13 PM org.eclipse.jetty.util.log.Log initialized
-INFO: Logging initialized @500ms
+Oct 26, 2016 9:10:03 PM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @425ms
 Exploding /root/.m2/repository/org/jenkins-ci/main/jenkins-war/1.625.3/jenkins-war-1.625.3-war-for-test.jar into /home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.server.handler.ContextHandler setContextPath
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.server.handler.ContextHandler setContextPath
 WARNING: Empty contextPath
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.server.Server doStart
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.server.Server doStart
 INFO: jetty-9.2.12.v20150709
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
 INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.server.handler.ContextHandler doStart
-INFO: Started o.e.j.w.WebAppContext@7bb6ab3a{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,AVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.server.AbstractConnector doStart
-INFO: Started ServerConnector@463b4ac8{HTTP/1.1}{localhost:35451}
-Oct 26, 2016 5:44:15 PM org.eclipse.jetty.server.Server doStart
-INFO: Started @2495ms
-Oct 26, 2016 5:44:15 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.server.handler.ContextHandler doStart
+INFO: Started o.e.j.w.WebAppContext@f478a81{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,AVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@31e4bb20{HTTP/1.1}{localhost:33491}
+Oct 26, 2016 9:10:04 PM org.eclipse.jetty.server.Server doStart
+INFO: Started @2158ms
+Oct 26, 2016 9:10:04 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started initialization
-Oct 26, 2016 5:44:22 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:12 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Listed all plugins
-Oct 26, 2016 5:44:22 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:12 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Prepared all plugins
-Oct 26, 2016 5:44:22 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:12 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Started all plugins
-Oct 26, 2016 5:44:22 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:12 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Augmented all extensions
-Oct 26, 2016 5:44:24 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:14 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Loaded all jobs
-Oct 26, 2016 5:44:25 PM org.jenkinsci.main.modules.sshd.SSHD start
-INFO: Started SSHD at port 42607
-Oct 26, 2016 5:44:25 PM jenkins.InitReactorRunner$1 onAttained
+Oct 26, 2016 9:10:16 PM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 37031
+Oct 26, 2016 9:10:16 PM jenkins.InitReactorRunner$1 onAttained
 INFO: Completed initialization
-Oct 26, 2016 5:44:25 PM org.eclipse.jetty.server.Server doStart
+Oct 26, 2016 9:10:16 PM org.eclipse.jetty.server.Server doStart
 INFO: jetty-9.2.12.v20150709
-Oct 26, 2016 5:44:25 PM org.eclipse.jetty.server.handler.ContextHandler doStart
-INFO: Started o.e.j.s.ServletContextHandler@2755d705{/,null,AVAILABLE}
-Oct 26, 2016 5:44:25 PM org.eclipse.jetty.server.AbstractConnector doStart
-INFO: Started ServerConnector@5fe8b721{HTTP/1.1}{0.0.0.0:35047}
-Oct 26, 2016 5:44:25 PM org.eclipse.jetty.server.Server doStart
-INFO: Started @12579ms
-Oct 26, 2016 5:44:27 PM org.eclipse.jetty.server.AbstractConnector doStop
-INFO: Stopped ServerConnector@463b4ac8{HTTP/1.1}{localhost:0}
-Oct 26, 2016 5:44:27 PM org.eclipse.jetty.server.handler.ContextHandler doStop
-INFO: Stopped o.e.j.w.WebAppContext@7bb6ab3a{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,UNAVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
+Oct 26, 2016 9:10:16 PM org.eclipse.jetty.server.handler.ContextHandler doStart
+INFO: Started o.e.j.s.ServletContextHandler@7df587ef{/,null,AVAILABLE}
+Oct 26, 2016 9:10:16 PM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@740abb5{HTTP/1.1}{0.0.0.0:36963}
+Oct 26, 2016 9:10:16 PM org.eclipse.jetty.server.Server doStart
+INFO: Started @14217ms
+Oct 26, 2016 9:10:18 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Started PeriodicCheck
+---------------------------------
+java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at java.net.Socket.connect(Socket.java:538)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:211)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:308)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:326)
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1169)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1105)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:999)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:933)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1513)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1441)
+	at idleMonitor.idleMonitor.PeriodicCheck.getLatestHit(PeriodicCheck.java:104)
+	at idleMonitor.idleMonitor.PeriodicCheck.checkStatus(PeriodicCheck.java:164)
+	at idleMonitor.idleMonitor.PeriodicCheck.execute(PeriodicCheck.java:189)
+	at hudson.model.AsyncPeriodicWork$1.run(AsyncPeriodicWork.java:53)
+	at java.lang.Thread.run(Thread.java:745)
+java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at java.net.Socket.connect(Socket.java:538)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:211)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:308)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:326)
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1169)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1105)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:999)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:933)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1513)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1441)
+	at idleMonitor.idleMonitor.PeriodicCheck.getBusyExecutors(PeriodicCheck.java:61)
+	at idleMonitor.idleMonitor.PeriodicCheck.checkStatus(PeriodicCheck.java:165)
+	at idleMonitor.idleMonitor.PeriodicCheck.execute(PeriodicCheck.java:189)
+	at hudson.model.AsyncPeriodicWork$1.run(AsyncPeriodicWork.java:53)
+	at java.lang.Thread.run(Thread.java:745)
+stay awake
+---------------------------------
+Oct 26, 2016 9:10:18 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Finished PeriodicCheck. 90 ms
+Oct 26, 2016 9:10:18 PM org.eclipse.jetty.server.AbstractConnector doStop
+INFO: Stopped ServerConnector@31e4bb20{HTTP/1.1}{localhost:0}
+Oct 26, 2016 9:10:18 PM org.eclipse.jetty.server.handler.ContextHandler doStop
+INFO: Stopped o.e.j.w.WebAppContext@f478a81{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,UNAVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
 WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
 WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.

@@ -40,5 +40,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/emehlenb/Downloads/json-simple-1.1.1.jar" sourcepath="/home/emehlenb/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1-sources.jar"/>
+	<classpathentry kind="lib" path="/home/emehlenb/Downloads/joda-time-2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
