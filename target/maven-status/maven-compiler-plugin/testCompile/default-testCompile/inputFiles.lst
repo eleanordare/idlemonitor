@@ -1,1 +1,4 @@
+/home/emehlenb/jenkins-2.0/idleMonitor/src/test/java/idleMonitor/GetLatestHitTest.java
+/home/emehlenb/jenkins-2.0/idleMonitor/src/test/java/idleMonitor/GetBusyExecutorsTest.java
+/home/emehlenb/jenkins-2.0/idleMonitor/src/test/java/idleMonitor/CheckStatusTest.java
 /home/emehlenb/jenkins-2.0/idleMonitor/target/generated-test-sources/injected/InjectedTest.java

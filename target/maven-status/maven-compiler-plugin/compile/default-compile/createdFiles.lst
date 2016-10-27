@@ -4,5 +4,4 @@ idleMonitor/idleMonitor/PluginImpl.class
 idleMonitor/idleMonitor/PeriodicCheck$1.class
 idleMonitor/idleMonitor/Constraints.class
 idleMonitor/idleMonitor/Setup.class
-idleMonitor/idleMonitor/PeriodicCheck$2.class
 META-INF/annotations/hudson.Extension

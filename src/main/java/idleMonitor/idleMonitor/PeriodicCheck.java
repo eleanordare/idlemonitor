@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import javax.annotation.CheckForNull;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -38,10 +39,12 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         super("PeriodicCheck");
     }
 
-    final static Jenkins jenkins = Jenkins.getActiveInstance();
+    @CheckForNull
+    final static Jenkins jenkins = Jenkins.getInstance();
     final static String username = "admin";
 	final static String password = "admin";
-	final static Setup setup = new Setup();	
+	final static Setup setup = new Setup();
+	final static String url = "http://localhost:8080/jenkins";
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
@@ -55,8 +58,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		JSONParser parser = new JSONParser();
 		long busyExecutors = 0;
 		
-		try {         
-            URL jsonURL = new URL("http://localhost:8080/jenkins/api/json?depth=1"); // URL to Parse
+		try {
+            URL jsonURL = new URL(url + "/api/json?depth=1"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
             String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
             yc.addRequestProperty("Authorization", header);
@@ -65,12 +68,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {    
             	JSONObject output = (JSONObject) parser.parse(inputLine);
-            	
-	            JSONArray assignedLabels = (JSONArray) output.get("assignedLabels");
-	            JSONObject assignedLabelsObj = (JSONObject) assignedLabels.get(0);
-	            busyExecutors = (long) assignedLabelsObj.get("busyExecutors");
-	            
-	            return busyExecutors;            		
+	            return parseJenkinsData(output);           		
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -89,6 +87,15 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         }
 		return busyExecutors;
 	}
+	
+	
+	public static long parseJenkinsData(JSONObject input) {
+		JSONArray assignedLabels = (JSONArray) input.get("assignedLabels");
+        JSONObject assignedLabelsObj = (JSONObject) assignedLabels.get(0);
+        long busyExecutors = (long) assignedLabelsObj.get("busyExecutors");
+        
+        return busyExecutors;  
+	}
 
 	
 	
@@ -104,7 +111,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		JSONParser parser = new JSONParser();
 		
 		try {         
-            URL jsonURL = new URL("http://localhost:8080/jenkins/monitoring?format=json&period=tout"); // URL to Parse
+            URL jsonURL = new URL(url + "/monitoring?format=json&period=tout"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
             String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
             yc.addRequestProperty("Authorization", header);
@@ -122,21 +129,9 @@ public class PeriodicCheck extends AsyncPeriodicWork {
             }
             
             String fullLine = sb.toString();
-            
             JSONObject output = (JSONObject) parser.parse(fullLine);
             	            
-        	ArrayList<Date> dates = new ArrayList<Date>();
-            JSONArray list = (JSONArray) output.get("list");
-            for (Object o : list) {
-            	JSONObject out = (JSONObject) o;
-            	String lineDate = (String) out.get("startDate");
-            	String inputDate = lineDate.split(" ")[0];
-            	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            	Date finalDate = dateFormat.parse(inputDate);
-            	dates.add(finalDate);
-            }
-            
-            return Collections.max(dates);   
+        	return parseMonitoringData(output);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -144,9 +139,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
             e.printStackTrace();
         } catch (ParseException e) {
         	e.printStackTrace();
-        } catch (java.text.ParseException e) {
-			e.printStackTrace();
-		} finally {
+        } finally {
         	if (in != null) {
         		try {
 					in.close();
@@ -160,26 +153,36 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 	
 	
+	public static Date parseMonitoringData(JSONObject input) {
+		ArrayList<Date> dates = new ArrayList<Date>();
+        JSONArray list = (JSONArray) input.get("list");
+        for (Object o : list) {
+        	JSONObject out = (JSONObject) o;
+        	String lineDate = (String) out.get("startDate");
+        	String inputDate = lineDate.split(" ")[0];
+        	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        	Date finalDate = null;
+			try {
+				finalDate = dateFormat.parse(inputDate);
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+        	dates.add(finalDate);
+        }
+        
+        return Collections.max(dates);
+	}
+	
+	
+	
 	/*
 	 * compares timeout period specified in Setup with last time UI was hit
 	 * and checks if busy executors is 0, calls shutdown script if necessary
 	 */
-	public static boolean checkStatus() {
-		
-		Authenticator.setDefault (new Authenticator() {
-		    protected PasswordAuthentication getPasswordAuthentication() {
-		        return new PasswordAuthentication (username, password.toCharArray());
-		    }
-		});
-		
-		long busyExecutors = getBusyExecutors();
-		
-		Period period = setup.getTimeoutPeriod();		
-		DateTime limit = new DateTime(new DateTime().minus(period));
-		DateTime latest = new DateTime(getLatestHit());
+	public static boolean checkStatus(long busyExecutors, DateTime latest, Period period) {
 		
 		// check if latest hit is before time limit
-		if ((latest.isBefore(limit)) && busyExecutors == 0) {
+		if ((latest.isBefore(new DateTime(new DateTime().minus(period)))) && busyExecutors == 0) {
 			System.out.println("sleepy time");
 			setup.shutdownJenkins();
 			return false;
@@ -196,8 +199,20 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
 
+		Authenticator.setDefault (new Authenticator() {
+		    protected PasswordAuthentication getPasswordAuthentication() {
+		        return new PasswordAuthentication (username, password.toCharArray());
+		    }
+		});
+    	
     	System.out.println("---------------------------------");
-    	checkStatus();
+    	
+    	long busyExecutors = getBusyExecutors();
+    	Period period = setup.getTimeoutPeriod();
+    	DateTime latest = new DateTime(getLatestHit());
+    	
+    	checkStatus(busyExecutors, latest, period);
+    	
     	System.out.println("---------------------------------");
 	
     }
