@@ -3,13 +3,13 @@ Plugin-Class: idleMonitor.idleMonitor.PluginImpl
 Group-Id: idleMonitor
 Short-Name: idleMonitor
 Long-Name: IdleMonitor plugin
-Plugin-Version: 1.0-SNAPSHOT (private-a45a3af3-root)
+Plugin-Version: 1.0-SNAPSHOT (private-6c653501-root)
 Hudson-Version: 1.625.3
 Jenkins-Version: 1.625.3
 Plugin-Developers: Eleanor Mehlenbacher:emehlenb:eleanor@redhat.com
 Libraries: /home/emehlenb/jenkins-2.0/idleMonitor/src/main/resources,/
  home/emehlenb/jenkins-2.0/idleMonitor/target/classes,/root/.m2/reposi
- tory/joda-time/joda-time/2.9.4/joda-time-2.9.4.jar,/root/.m2/reposito
- ry/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar
+ tory/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.j
+ ar,/root/.m2/repository/joda-time/joda-time/2.9.4/joda-time-2.9.4.jar
 Resource-Path: /home/emehlenb/jenkins-2.0/idleMonitor/src/main/webapp
 

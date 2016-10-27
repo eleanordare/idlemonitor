@@ -33,11 +33,11 @@ public class Setup implements Constraints {
 
 	@Override
 	public void shutdownJenkins() {
-		try {
-			jenkins.doSafeExit(req);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			jenkins.doSafeExit(req);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	

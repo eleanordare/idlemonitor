@@ -38,11 +38,10 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         super("PeriodicCheck");
     }
 
-    final static Jenkins jenkins = Jenkins.getActiveInstance();    
+    final static Jenkins jenkins = Jenkins.getActiveInstance();
     final static String username = "admin";
 	final static String password = "admin";
-	final static Setup setup = new Setup();
-	
+	final static Setup setup = new Setup();	
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
@@ -173,14 +172,14 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		    }
 		});
 		
-		Date latest = getLatestHit();
 		long busyExecutors = getBusyExecutors();
 		
-		Period period = setup.getTimeoutPeriod();
+		Period period = setup.getTimeoutPeriod();		
+		DateTime limit = new DateTime(new DateTime().minus(period));
+		DateTime latest = new DateTime(getLatestHit());
 		
-		Period change = new Period(new DateTime(latest), new DateTime());
-		
-		if ((change.getSeconds() > period.getSeconds()) && busyExecutors == 0) {
+		// check if latest hit is before time limit
+		if ((latest.isBefore(limit)) && busyExecutors == 0) {
 			System.out.println("sleepy time");
 			setup.shutdownJenkins();
 			return false;
@@ -196,7 +195,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
-        
+
     	System.out.println("---------------------------------");
     	checkStatus();
     	System.out.println("---------------------------------");

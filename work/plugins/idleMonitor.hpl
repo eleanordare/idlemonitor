@@ -3,7 +3,7 @@ Plugin-Class: idleMonitor.idleMonitor.PluginImpl
 Group-Id: idleMonitor
 Short-Name: idleMonitor
 Long-Name: IdleMonitor plugin
-Plugin-Version: 1.0-SNAPSHOT (private-a45a3af3-root)
+Plugin-Version: 1.0-SNAPSHOT (private-6c653501-root)
 Hudson-Version: 1.625.3
 Jenkins-Version: 1.625.3
 Plugin-Developers: Eleanor Mehlenbacher:emehlenb:eleanor@redhat.com
