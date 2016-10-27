@@ -10,8 +10,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.kohsuke.stapler.Stapler;
-import org.kohsuke.stapler.StaplerRequest;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -44,7 +42,12 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     final static String username = "admin";
 	final static String password = "admin";
 	final static Setup setup = new Setup();
-		
+	
+	
+	/*
+	 * parses instance's exposed data at {JENKINS}/api
+	 * to check for current activity
+	 */
 	public static long getBusyExecutors() {
 			
 		System.setProperty("file.encoding", "UTF-8");
@@ -89,6 +92,11 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 
 	
+	
+	/*
+	 * checks exposed data from Monitoring plugin at {JENKINS}/monitoring
+	 * for last time UI was hit
+	 */
 	public static Date getLatestHit() {
 		
 		System.setProperty("file.encoding", "UTF-8");
@@ -153,11 +161,15 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 	
 	
+	/*
+	 * compares timeout period specified in Setup with last time UI was hit
+	 * and checks if busy executors is 0, calls shutdown script if necessary
+	 */
 	public static boolean checkStatus() {
 		
 		Authenticator.setDefault (new Authenticator() {
 		    protected PasswordAuthentication getPasswordAuthentication() {
-		        return new PasswordAuthentication ("admin", "admin".toCharArray());
+		        return new PasswordAuthentication (username, password.toCharArray());
 		    }
 		});
 		
@@ -191,10 +203,11 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	
     }
 
-    
+    /*
+     * specified in Setup, execute method is run this often
+     */
     @Override
     public long getRecurrencePeriod() {
-        // Recurrence will happened every minute, but the action will be taken according to the cron settings
         return setup.getPollingInterval();
     }
     
