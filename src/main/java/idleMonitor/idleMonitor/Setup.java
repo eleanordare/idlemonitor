@@ -1,6 +1,5 @@
 package idleMonitor.idleMonitor;
 
-import java.io.IOException;
 import jenkins.model.Jenkins;
 
 import org.joda.time.*;
