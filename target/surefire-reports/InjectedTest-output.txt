@@ -1,45 +1,45 @@
-Oct 31, 2016 10:28:34 AM org.eclipse.jetty.util.log.Log initialized
-INFO: Logging initialized @1023ms
+Oct 31, 2016 10:49:32 AM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @1263ms
 Exploding /root/.m2/repository/org/jenkins-ci/main/jenkins-war/1.625.3/jenkins-war-1.625.3-war-for-test.jar into /home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.server.handler.ContextHandler setContextPath
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.server.handler.ContextHandler setContextPath
 WARNING: Empty contextPath
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.server.Server doStart
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.server.Server doStart
 INFO: jetty-9.2.12.v20150709
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
 INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.server.handler.ContextHandler doStart
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.server.handler.ContextHandler doStart
 INFO: Started o.e.j.w.WebAppContext@4c4748bf{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,AVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.server.AbstractConnector doStart
-INFO: Started ServerConnector@62f68dff{HTTP/1.1}{localhost:39427}
-Oct 31, 2016 10:28:36 AM org.eclipse.jetty.server.Server doStart
-INFO: Started @2981ms
-Oct 31, 2016 10:28:36 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@62f68dff{HTTP/1.1}{localhost:45401}
+Oct 31, 2016 10:49:34 AM org.eclipse.jetty.server.Server doStart
+INFO: Started @3206ms
+Oct 31, 2016 10:49:34 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Started initialization
-Oct 31, 2016 10:28:43 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:41 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Listed all plugins
-Oct 31, 2016 10:28:43 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:41 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Prepared all plugins
-Oct 31, 2016 10:28:43 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:41 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Started all plugins
-Oct 31, 2016 10:28:43 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:41 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Augmented all extensions
-Oct 31, 2016 10:28:45 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:44 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Loaded all jobs
-Oct 31, 2016 10:28:46 AM org.jenkinsci.main.modules.sshd.SSHD start
-INFO: Started SSHD at port 43161
-Oct 31, 2016 10:28:46 AM jenkins.InitReactorRunner$1 onAttained
+Oct 31, 2016 10:49:45 AM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 34767
+Oct 31, 2016 10:49:45 AM jenkins.InitReactorRunner$1 onAttained
 INFO: Completed initialization
-Oct 31, 2016 10:28:46 AM org.eclipse.jetty.server.Server doStart
+Oct 31, 2016 10:49:45 AM org.eclipse.jetty.server.Server doStart
 INFO: jetty-9.2.12.v20150709
-Oct 31, 2016 10:28:46 AM org.eclipse.jetty.server.handler.ContextHandler doStart
+Oct 31, 2016 10:49:45 AM org.eclipse.jetty.server.handler.ContextHandler doStart
 INFO: Started o.e.j.s.ServletContextHandler@740abb5{/,null,AVAILABLE}
-Oct 31, 2016 10:28:46 AM org.eclipse.jetty.server.AbstractConnector doStart
-INFO: Started ServerConnector@578524c3{HTTP/1.1}{0.0.0.0:42581}
-Oct 31, 2016 10:28:46 AM org.eclipse.jetty.server.Server doStart
-INFO: Started @13312ms
-Oct 31, 2016 10:28:48 AM org.eclipse.jetty.server.AbstractConnector doStop
+Oct 31, 2016 10:49:45 AM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@578524c3{HTTP/1.1}{0.0.0.0:42283}
+Oct 31, 2016 10:49:45 AM org.eclipse.jetty.server.Server doStart
+INFO: Started @14041ms
+Oct 31, 2016 10:49:47 AM org.eclipse.jetty.server.AbstractConnector doStop
 INFO: Stopped ServerConnector@62f68dff{HTTP/1.1}{localhost:0}
-Oct 31, 2016 10:28:48 AM org.eclipse.jetty.server.handler.ContextHandler doStop
+Oct 31, 2016 10:49:47 AM org.eclipse.jetty.server.handler.ContextHandler doStop
 INFO: Stopped o.e.j.w.WebAppContext@4c4748bf{/,file:/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test/,UNAVAILABLE}{/home/emehlenb/jenkins-2.0/idleMonitor/target/jenkins-for-test}
 WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
 WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.

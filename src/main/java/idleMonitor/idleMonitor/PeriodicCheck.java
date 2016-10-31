@@ -44,7 +44,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     final static String username = "admin";
 	final static String password = "admin";
 	final static Setup setup = new Setup();
-	final static String url = "http://localhost:8080";
+	static String url = "http://localhost:8080/";
+	
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
@@ -59,7 +60,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		long busyExecutors = 0;
 		
 		try {
-            URL jsonURL = new URL(url + "/api/json?depth=1"); // URL to Parse
+            URL jsonURL = new URL(url + "api/json?depth=1"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
             String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
             yc.addRequestProperty("Authorization", header);
@@ -111,7 +112,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		JSONParser parser = new JSONParser();
 		
 		try {         
-            URL jsonURL = new URL(url + "/monitoring?format=json&period=tout"); // URL to Parse
+            URL jsonURL = new URL(url + "monitoring?format=json&period=tout"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
             String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
             yc.addRequestProperty("Authorization", header);
@@ -199,6 +200,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
 
+    	if (jenkins != null) { url = jenkins.getRootUrl(); };
+    	
 		Authenticator.setDefault (new Authenticator() {
 		    protected PasswordAuthentication getPasswordAuthentication() {
 		        return new PasswordAuthentication (username, password.toCharArray());
