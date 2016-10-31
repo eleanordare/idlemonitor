@@ -13,6 +13,8 @@ import org.junit.Test;
 
 public class GetLatestHitTest {
 	
+	PeriodicCheck check = new PeriodicCheck();
+	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test() {		
@@ -24,7 +26,7 @@ public class GetLatestHitTest {
 		try {
 			JSONObject input = (JSONObject) parser.parse(str);
 			
-			Date output = PeriodicCheck.parseMonitoringData(input);
+			Date output = check.parseMonitoringData(input);
 			
 			assertEquals(27, output.getDay());
 			assertEquals(10, output.getMonth());

@@ -9,6 +9,8 @@ import org.junit.Test;
 
 public class CheckStatusTest {
 	
+	PeriodicCheck check = new PeriodicCheck();
+	
 	@Test
 	public void testFalse() {
 		
@@ -16,7 +18,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertFalse(PeriodicCheck.checkStatus(busyExecutors, latest, period));
+    	assertFalse(check.checkStatus(busyExecutors, latest, period));
 		
 	}
 	
@@ -26,7 +28,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertTrue(PeriodicCheck.checkStatus(busyExecutors, latest, period));
+    	assertTrue(check.checkStatus(busyExecutors, latest, period));
 		
 	}
 	
@@ -36,7 +38,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(5));
     	
-    	assertTrue(PeriodicCheck.checkStatus(busyExecutors, latest, period));
+    	assertTrue(check.checkStatus(busyExecutors, latest, period));
     	
 	}
 

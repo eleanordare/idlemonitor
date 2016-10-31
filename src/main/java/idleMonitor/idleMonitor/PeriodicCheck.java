@@ -40,20 +40,20 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     }
 
     @CheckForNull
-    final static Jenkins jenkins = Jenkins.getInstance();
-    final static String username = "admin";
-	final static String password = "admin";
-	final static Setup setup = new Setup();
+    final Jenkins jenkins = Jenkins.getInstance();
+	final Setup setup = new Setup();
 	
 	// can't be null for tests, execute method changes to real instance url
-	static String url = "http://localhost:8080/";
+	String url = "http://localhost:8080/";
+	final static String username = "admin";
+	final static String password = "admin";
 	
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
 	 * to check for current activity
 	 */
-	public static long getBusyExecutors() {
+	private long getBusyExecutors() {
 			
 		System.setProperty("file.encoding", "UTF-8");
 		
@@ -92,7 +92,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 	
 	
-	public static long parseJenkinsData(JSONObject input) {
+	public long parseJenkinsData(JSONObject input) {
 		JSONArray assignedLabels = (JSONArray) input.get("assignedLabels");
         JSONObject assignedLabelsObj = (JSONObject) assignedLabels.get(0);
         long busyExecutors = (long) assignedLabelsObj.get("busyExecutors");
@@ -106,7 +106,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	 * checks exposed data from Monitoring plugin at {JENKINS}/monitoring
 	 * for last time UI was hit
 	 */
-	public static Date getLatestHit() {
+	private Date getLatestHit() {
 		
 		System.setProperty("file.encoding", "UTF-8");
 		
@@ -156,7 +156,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 	
 	
-	public static Date parseMonitoringData(JSONObject input) {
+	public Date parseMonitoringData(JSONObject input) {
 		ArrayList<Date> dates = new ArrayList<Date>();
         JSONArray list = (JSONArray) input.get("list");
         for (Object o : list) {
@@ -182,7 +182,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	 * compares timeout period specified in Setup with last time UI was hit
 	 * and checks if busy executors is 0, calls shutdown script if necessary
 	 */
-	public static boolean checkStatus(long busyExecutors, DateTime latest, Period period) {
+	public boolean checkStatus(long busyExecutors, DateTime latest, Period period) {
 		
 		// check if latest hit is before time limit
 		if ((latest.isBefore(new DateTime(new DateTime().minus(period)))) && busyExecutors == 0) {
