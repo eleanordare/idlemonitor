@@ -7,7 +7,7 @@ Constraints interface includes:
 
 
 Installation:
-  - download idleMonitor.hpi file OR download entire idleMonitor directory and mvn clean install to get idleMonitor/target/idleMonitor.hpi
+  - download target/idleMonitor.hpi file OR download entire idleMonitor directory and mvn clean install to get idleMonitor/target/idleMonitor.hpi
   - save idleMonitor.hpi to $JENKINS_HOME/plugins directory
   - restart Jenkins instance and plugin will be installed
 
