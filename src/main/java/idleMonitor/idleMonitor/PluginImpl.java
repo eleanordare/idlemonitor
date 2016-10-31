@@ -3,7 +3,7 @@ package idleMonitor.idleMonitor;
 import hudson.Plugin;
 
 /**
- * PeriodicBackupPlugin is responsible to set up and shutdown this plug-in.
+ * PeriodicCheck is responsible to set up and shutdown this plug-in.
  */
 public class PluginImpl extends Plugin {
 	

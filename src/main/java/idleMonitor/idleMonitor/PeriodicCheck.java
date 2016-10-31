@@ -44,6 +44,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     final static String username = "admin";
 	final static String password = "admin";
 	final static Setup setup = new Setup();
+	
+	// can't be null for tests, execute method changes to real instance url
 	static String url = "http://localhost:8080/";
 	
 	
