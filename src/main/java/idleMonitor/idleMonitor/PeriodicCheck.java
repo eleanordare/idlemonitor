@@ -44,7 +44,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     final static String username = "admin";
 	final static String password = "admin";
 	final static Setup setup = new Setup();
-	final static String url = "http://localhost:8080/jenkins";
+	final static String url = "http://localhost:8080";
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
