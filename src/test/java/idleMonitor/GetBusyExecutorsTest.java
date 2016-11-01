@@ -1,7 +1,7 @@
 package idleMonitor;
 
 import static org.junit.Assert.*;
-import idleMonitor.idleMonitor.*;
+import idleMonitor.idleMonitor.ParsingUtils;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class GetBusyExecutorsTest {
 	
-	PeriodicCheck check = new PeriodicCheck();
+	ParsingUtils parsing = new ParsingUtils();
 	
 	@Test
 	public void test() {		
@@ -22,7 +22,7 @@ public class GetBusyExecutorsTest {
 		try {
 			JSONObject input = (JSONObject) parser.parse(str);
 			
-			long output = check.parseJenkinsData(input);
+			long output = parsing.parseJenkinsData(input);
 			
 			assertEquals(0, output);
 			

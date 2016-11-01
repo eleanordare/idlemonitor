@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import idleMonitor.idleMonitor.*;
+import idleMonitor.idleMonitor.ParsingUtils;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class GetLatestHitTest {
 	
-	PeriodicCheck check = new PeriodicCheck();
+	ParsingUtils parsing = new ParsingUtils();
 	
 	@SuppressWarnings("deprecation")
 	@Test
@@ -26,7 +26,7 @@ public class GetLatestHitTest {
 		try {
 			JSONObject input = (JSONObject) parser.parse(str);
 			
-			Date output = check.parseMonitoringData(input);
+			Date output = parsing.parseMonitoringData(input);
 			
 			assertEquals(27, output.getDay());
 			assertEquals(10, output.getMonth());

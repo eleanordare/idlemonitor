@@ -1,7 +1,7 @@
 package idleMonitor;
 
 import static org.junit.Assert.*;
-import idleMonitor.idleMonitor.PeriodicCheck;
+import idleMonitor.idleMonitor.CheckStatus;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class CheckStatusTest {
 	
-	PeriodicCheck check = new PeriodicCheck();
+	CheckStatus check = new CheckStatus();
 	
 	@Test
 	public void testFalse() {
@@ -18,7 +18,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertFalse(check.checkStatus(busyExecutors, latest, period));
+    	assertFalse(check.main(busyExecutors, latest, period));
 		
 	}
 	
@@ -28,7 +28,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertTrue(check.checkStatus(busyExecutors, latest, period));
+    	assertTrue(check.main(busyExecutors, latest, period));
 		
 	}
 	
@@ -38,7 +38,7 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(5));
     	
-    	assertTrue(check.checkStatus(busyExecutors, latest, period));
+    	assertTrue(check.main(busyExecutors, latest, period));
     	
 	}
 
