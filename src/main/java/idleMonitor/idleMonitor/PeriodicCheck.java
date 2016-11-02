@@ -5,8 +5,6 @@ import hudson.model.AsyncPeriodicWork;
 import hudson.model.TaskListener;
 
 import java.io.IOException;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.ServiceLoader;
 
 import javax.annotation.CheckForNull;
@@ -30,8 +28,6 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	CheckStatus check = new CheckStatus();
 	RetrieveDataUtils retrieve = new RetrieveDataUtils();
 	
-	final static String username = "admin";
-	final static String password = "admin";
 	
 	@CheckForNull
 	static ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
@@ -59,13 +55,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
-    	
-		Authenticator.setDefault (new Authenticator() {
-		    protected PasswordAuthentication getPasswordAuthentication() {
-		        return new PasswordAuthentication (username, password.toCharArray());
-		    }
-		});
-		    	
+    			    	
     	System.out.println("---------------------------------");
     	
     	long busyExecutors = retrieve.getBusyExecutors();
