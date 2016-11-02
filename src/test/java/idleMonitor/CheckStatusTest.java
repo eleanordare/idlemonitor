@@ -1,7 +1,7 @@
 package idleMonitor;
 
 import static org.junit.Assert.*;
-import idleMonitor.idleMonitor.CheckStatus;
+import idleMonitor.idleMonitor.*;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;

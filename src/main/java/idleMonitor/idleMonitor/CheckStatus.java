@@ -3,15 +3,18 @@ package idleMonitor.idleMonitor;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import idleMonitor.idleMonitor.Constraints;
+
 import java.util.ServiceLoader;
+import jenkins.model.Jenkins;
 
 public class CheckStatus {
-		
+
 	
 	public static <T> T loadService(Class<T> service) {
 		
 		T result = null;
-		ServiceLoader<T> impl = ServiceLoader.load(service);
+		ServiceLoader<T> impl = ServiceLoader.load(service, Jenkins.getInstance().getPluginManager().uberClassLoader);
 		
 		for (T loadedImpl : impl) {
 			result = loadedImpl;
@@ -22,7 +25,6 @@ public class CheckStatus {
 				"Cannot find implementation for: " + service);
 		
 		return result;
-		
 	}
 	
 	public static final Constraints constraints = loadService(Constraints.class);

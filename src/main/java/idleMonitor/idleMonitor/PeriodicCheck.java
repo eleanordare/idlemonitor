@@ -11,6 +11,10 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.ServiceLoader;
 
+import javax.annotation.CheckForNull;
+
+import jenkins.model.Jenkins;
+
 
 /**
  * Performs checks periodically to see if instance should be up and running
@@ -28,11 +32,15 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	final static String username = "admin";
 	final static String password = "admin";
 	
+	@CheckForNull
+	static ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
+	
 	
 	public static <T> T loadService(Class<T> service) {
 		
 		T result = null;
-		ServiceLoader<T> impl = ServiceLoader.load(service);
+		@CheckForNull
+		ServiceLoader<T> impl = ServiceLoader.load(service, jenkins);
 		
 		for (T loadedImpl : impl) {
 			result = loadedImpl;
