@@ -1,10 +1,9 @@
 package idleMonitor.idleMonitor;
 
 import jenkins.model.Jenkins;
-import idleMonitor.idleMonitor.Constraints;
 
-import org.joda.time.*;
-import org.kohsuke.stapler.*;
+import org.joda.time.Period;
+import org.kohsuke.stapler.StaplerRequest;
 
 public class Setup implements Constraints {
 	

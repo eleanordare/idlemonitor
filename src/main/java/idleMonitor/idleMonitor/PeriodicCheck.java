@@ -36,7 +36,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	@CheckForNull
 	static ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
 	
-	
+	//injection of Constraints implementation
 	public static <T> T loadService(Class<T> service) {
 		
 		T result = null;
@@ -52,7 +52,6 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 				"Cannot find implementation for: " + service);
 		
 		return result;
-		
 	}
 	
 	public static final Constraints constraints = loadService(Constraints.class);
@@ -80,7 +79,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     }
 
     /*
-     * specified in Setup, execute method is run this often
+     * specified in implementation of Constraints interface,
+     * execute method is run this often
      */
     @Override
     public long getRecurrencePeriod() {
