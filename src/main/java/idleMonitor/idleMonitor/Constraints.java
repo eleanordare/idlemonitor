@@ -1,6 +1,6 @@
 package idleMonitor.idleMonitor;
 
-import org.joda.time.*;
+import org.joda.time.Period;
 
 public interface Constraints {
 

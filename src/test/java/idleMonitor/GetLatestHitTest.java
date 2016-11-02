@@ -1,10 +1,9 @@
 package idleMonitor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import idleMonitor.idleMonitor.ParsingUtils;
 
 import java.util.Date;
-
-import idleMonitor.idleMonitor.ParsingUtils;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

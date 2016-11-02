@@ -1,6 +1,6 @@
 package idleMonitor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import idleMonitor.idleMonitor.ParsingUtils;
 
 import org.json.simple.JSONObject;

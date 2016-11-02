@@ -62,8 +62,10 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		Period period = constraints.getTimeoutPeriod();
 		DateTime latest = new DateTime(retrieve.getLatestHit());
     	
-    	check.main(busyExecutors, latest, period);
-    	
+		if (!check.main(busyExecutors, latest, period)) {
+			constraints.shutdownJenkins();
+		}
+		    	
     	System.out.println("---------------------------------");
 	
     }

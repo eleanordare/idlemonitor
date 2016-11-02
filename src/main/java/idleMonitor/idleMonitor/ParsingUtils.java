@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
