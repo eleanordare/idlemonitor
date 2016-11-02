@@ -10,7 +10,6 @@ import java.nio.charset.Charset;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
-import javax.xml.bind.DatatypeConverter;
 
 import jenkins.model.Jenkins;
 
@@ -27,8 +26,6 @@ public class RetrieveDataUtils {
     
 	// can't be null for tests, execute method changes to real instance url
 	String url = "http://localhost:8080/";
-	final static String username = "admin";
-	final static String password = "admin";
 	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
@@ -47,8 +44,6 @@ public class RetrieveDataUtils {
 		try {
             URL jsonURL = new URL(url + "api/json?depth=1"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
-            String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
-            yc.addRequestProperty("Authorization", header);
             in = new BufferedReader(new InputStreamReader(yc.getInputStream(), Charset.defaultCharset()));
             
             String inputLine;
@@ -92,8 +87,6 @@ public class RetrieveDataUtils {
 		try {         
             URL jsonURL = new URL(url + "monitoring?format=json&period=tout"); // URL to Parse
             URLConnection yc = jsonURL.openConnection();
-            String header = "Basic " + new String(DatatypeConverter.parseBase64Binary(username + ":" + password), Charset.defaultCharset());
-            yc.addRequestProperty("Authorization", header);
             InputStreamReader inStream = new InputStreamReader(yc.getInputStream(), Charset.defaultCharset());
             in = new BufferedReader(inStream);
             

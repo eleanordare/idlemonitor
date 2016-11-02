@@ -2,10 +2,12 @@ package idleMonitor.idleMonitor;
 
 import jenkins.model.Jenkins;
 
-import org.joda.time.*;
-import org.kohsuke.stapler.*;
+import org.joda.time.Period;
+import org.kohsuke.stapler.StaplerRequest;
 
 public class Setup implements Constraints {
+	
+	public Setup() { };
 
 	final static Jenkins jenkins = Jenkins.getInstance();
 	final static StaplerRequest req = null;

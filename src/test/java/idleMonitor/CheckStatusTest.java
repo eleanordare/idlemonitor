@@ -5,8 +5,10 @@ import idleMonitor.idleMonitor.CheckStatus;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class CheckStatusTest {
 	
 	CheckStatus check = new CheckStatus();
