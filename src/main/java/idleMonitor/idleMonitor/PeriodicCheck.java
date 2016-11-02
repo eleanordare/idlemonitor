@@ -4,8 +4,6 @@ import hudson.Extension;
 import hudson.model.AsyncPeriodicWork;
 import hudson.model.TaskListener;
 
-import org.joda.time.*;
-
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -14,6 +12,9 @@ import java.util.ServiceLoader;
 import javax.annotation.CheckForNull;
 
 import jenkins.model.Jenkins;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 
 /**

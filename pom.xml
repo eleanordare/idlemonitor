@@ -33,6 +33,23 @@
 
   <!-- The default licence for Jenkins OSS Plugins is MIT. Substitute for the applicable one if needed. -->
 
+  <build>
+  <plugins>
+ <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>findbugs-maven-plugin</artifactId>
+    <configuration>
+    <skip>true</skip></configuration>
+    <executions>
+        <execution>
+            <phase>none</phase>
+        </execution>
+    </executions>
+</plugin>
+</plugins>
+  </build>
+
+
   <licenses>
     <license>
       <name>MIT License</name>
@@ -54,12 +71,14 @@
       <url>https://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
+  
   <pluginRepositories>
     <pluginRepository>
       <id>repo.jenkins-ci.org</id>
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+  
   <dependencies>
     <dependency>
     	<groupId>com.googlecode.json-simple</groupId>
