@@ -10,6 +10,10 @@ import java.nio.charset.Charset;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 
 import jenkins.model.Jenkins;
 
@@ -34,9 +38,19 @@ public class RetrieveDataUtils {
 	public long getBusyExecutors() {
 		
     	if (jenkins != null) { url = jenkins.getRootUrl(); };
-			
-		System.setProperty("file.encoding", "UTF-8");
-		
+					
+    	
+    	Client client = ClientBuilder.newClient();
+    	WebTarget routing = client.target(url + "api/json?depth=1");
+    	Response get = routing.request().get();
+    	
+    	
+    	System.out.println("=============================");
+    	System.out.println(get.toString());
+    	System.out.println("=============================");
+    	
+    	client.close();
+    	
 		BufferedReader in = null;
 		JSONParser parser = new JSONParser();
 		long busyExecutors = 0;
@@ -78,9 +92,7 @@ public class RetrieveDataUtils {
 	public Date getLatestHit() {
 		
 		if (jenkins != null) { url = jenkins.getRootUrl(); };
-		
-		System.setProperty("file.encoding", "UTF-8");
-		
+				
 		BufferedReader in = null;
 		JSONParser parser = new JSONParser();
 		

@@ -20,28 +20,53 @@ public class CheckStatusTest {
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertFalse(check.main(busyExecutors, latest, period));
+    	assertFalse(check.checkStatus(busyExecutors, latest, period));
 		
 	}
 	
+	@Test
 	public void testTrue1() {
 		
 		long busyExecutors = 5;
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(10));
     	
-    	assertTrue(check.main(busyExecutors, latest, period));
+    	assertTrue(check.checkStatus(busyExecutors, latest, period));
 		
 	}
 	
+	@Test
 	public void testTrue2() {
 		
 		long busyExecutors = 0;
     	Period period = Period.days(7);
     	DateTime latest = new DateTime(new DateTime().minusDays(5));
     	
-    	assertTrue(check.main(busyExecutors, latest, period));
+    	assertTrue(check.checkStatus(busyExecutors, latest, period));
     	
 	}
+	
+	@Test
+	public void testEdgeTrue() {
+		
+		long busyExecutors = 3;
+    	Period period = Period.seconds(1);
+    	DateTime latest = new DateTime(new DateTime().minusSeconds(1));
+    	
+    	assertTrue(check.checkStatus(busyExecutors, latest, period));
+    	
+	}
+	
+	@Test
+	public void testEdgeFalse() {
+		
+		long busyExecutors = 0;
+    	Period period = Period.seconds(1);
+    	DateTime latest = new DateTime(new DateTime().minusSeconds(2));
+    	
+    	assertFalse(check.checkStatus(busyExecutors, latest, period));
+    	
+	}
+	
 
 }

@@ -30,10 +30,10 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	
 	
 	@CheckForNull
-	static ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
+	ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
 	
 	//injection of Constraints implementation
-	public static <T> T loadService(Class<T> service) {
+	public <T> T loadService(Class<T> service) {
 		
 		T result = null;
 		@CheckForNull
@@ -50,24 +50,20 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		return result;
 	}
 	
-	public static final Constraints constraints = loadService(Constraints.class);
+	public final Constraints constraints = loadService(Constraints.class);
 	
 	
     @Override
     protected void execute(TaskListener taskListener) throws IOException {
-    			    	
-    	System.out.println("---------------------------------");
-    	
+    			    	    	
     	long busyExecutors = retrieve.getBusyExecutors();
 		Period period = constraints.getTimeoutPeriod();
 		DateTime latest = new DateTime(retrieve.getLatestHit());
     	
-		if (!check.main(busyExecutors, latest, period)) {
+		if (!check.checkStatus(busyExecutors, latest, period)) {
 			constraints.shutdownJenkins();
 		}
-		    	
-    	System.out.println("---------------------------------");
-	
+		    		
     }
 
     /*
