@@ -10,10 +10,6 @@ import java.nio.charset.Charset;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
 
 import jenkins.model.Jenkins;
 
@@ -31,26 +27,41 @@ public class RetrieveDataUtils {
 	// can't be null for tests, execute method changes to real instance url
 	String url = "http://localhost:8080/";
 	
+//	
+//	@GET
+//	@Path("http://localhost:8080/api/json?depth=1")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response getRemoteData(String x) {
+//		
+//		System.out.println(x);
+//		return Response.status(200).build();
+//		
+//	}
+//	
+	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
 	 * to check for current activity
 	 */
 	public long getBusyExecutors() {
 		
-    	if (jenkins != null) { url = jenkins.getRootUrl(); };
-					
-    	
-    	Client client = ClientBuilder.newClient();
-    	WebTarget routing = client.target(url + "api/json?depth=1");
-    	Response get = routing.request().get();
-    	
-    	
-    	System.out.println("=============================");
-    	System.out.println(get.toString());
-    	System.out.println("=============================");
-    	
-    	client.close();
-    	
+		if (jenkins != null) { url = jenkins.getRootUrl(); };
+//		
+//    	Client client = ClientBuilder.newClient();
+//    	String destUrl = url + "/api/json?depth=1";
+//    	WebTarget routing = client.target(destUrl);
+//    	Response get = routing.request(MediaType.APPLICATION_JSON).get();
+//    	String x = "";    	    	
+//    	
+//    	System.out.println("=============================");
+//    	System.out.println(getRemoteData(x).toString());
+//    	
+//    	System.out.println(get.toString());
+//    	System.out.println("=============================");
+//    	
+//    	client.close();
+		
+		
 		BufferedReader in = null;
 		JSONParser parser = new JSONParser();
 		long busyExecutors = 0;
