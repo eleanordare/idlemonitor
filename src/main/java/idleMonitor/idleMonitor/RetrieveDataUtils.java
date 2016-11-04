@@ -1,15 +1,18 @@
 package idleMonitor.idleMonitor;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import jenkins.model.Jenkins;
 
@@ -27,18 +30,6 @@ public class RetrieveDataUtils {
 	// can't be null for tests, execute method changes to real instance url
 	String url = "http://localhost:8080/";
 	
-//	
-//	@GET
-//	@Path("http://localhost:8080/api/json?depth=1")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response getRemoteData(String x) {
-//		
-//		System.out.println(x);
-//		return Response.status(200).build();
-//		
-//	}
-//	
-	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api
 	 * to check for current activity
@@ -46,52 +37,30 @@ public class RetrieveDataUtils {
 	public long getBusyExecutors() {
 		
 		if (jenkins != null) { url = jenkins.getRootUrl(); };
-//		
-//    	Client client = ClientBuilder.newClient();
-//    	String destUrl = url + "/api/json?depth=1";
-//    	WebTarget routing = client.target(destUrl);
-//    	Response get = routing.request(MediaType.APPLICATION_JSON).get();
-//    	String x = "";    	    	
-//    	
-//    	System.out.println("=============================");
-//    	System.out.println(getRemoteData(x).toString());
-//    	
-//    	System.out.println(get.toString());
-//    	System.out.println("=============================");
-//    	
-//    	client.close();
 		
+    	Client client = ClientBuilder.newClient();
+    	String destUrl = url + "/api/json?depth=1";
+    	WebTarget routing = client.target(destUrl);
+    	final Response response = routing.request().accept(MediaType.APPLICATION_JSON).get();
+    	final InputStream stream = response.readEntity(InputStream.class);
+    	
+    	long busyExecutors = 0;
+        BufferedReader in = new BufferedReader(new InputStreamReader(stream, Charset.defaultCharset()));
+    	JSONParser parser = new JSONParser();
+        
+    	String inputLine;
+	    try {
+	    	while ((inputLine = in.readLine()) != null) {    
+	    		JSONObject output = (JSONObject) parser.parse(inputLine);
+			  	return parsing.parseJenkinsData(output);        		
+			  }
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}
+	    
+    	client.close();
 		
-		BufferedReader in = null;
-		JSONParser parser = new JSONParser();
-		long busyExecutors = 0;
-		
-		try {
-            URL jsonURL = new URL(url + "api/json?depth=1"); // URL to Parse
-            URLConnection yc = jsonURL.openConnection();
-            in = new BufferedReader(new InputStreamReader(yc.getInputStream(), Charset.defaultCharset()));
-            
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {    
-            	JSONObject output = (JSONObject) parser.parse(inputLine);
-	            return parsing.parseJenkinsData(output);           		
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-        	e.printStackTrace();
-        } finally {
-        	if (in != null) {
-        		try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        	}
-        }
-		return busyExecutors;
+    	return busyExecutors;
 	}
 	
 	
@@ -104,46 +73,39 @@ public class RetrieveDataUtils {
 		
 		if (jenkins != null) { url = jenkins.getRootUrl(); };
 				
-		BufferedReader in = null;
-		JSONParser parser = new JSONParser();
+		Client client = ClientBuilder.newClient();
+    	String destUrl = url + "monitoring?format=json&period=tout";
+    	WebTarget routing = client.target(destUrl);
+    	final Response response = routing.request().accept(MediaType.APPLICATION_JSON).get();
+    	final InputStream stream = response.readEntity(InputStream.class);
 		
-		try {         
-            URL jsonURL = new URL(url + "monitoring?format=json&period=tout"); // URL to Parse
-            URLConnection yc = jsonURL.openConnection();
-            InputStreamReader inStream = new InputStreamReader(yc.getInputStream(), Charset.defaultCharset());
-            in = new BufferedReader(inStream);
-            
-            String inputLine;
-            StringBuffer sb = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) { 
-            	sb.append(inputLine);
-            	if ( inputLine.contains(("\n"))) {
-            		in.close();
-            		break;
-            	}
+    	BufferedReader in = new BufferedReader(new InputStreamReader(stream, Charset.defaultCharset()));
+		
+     	StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = in.readLine()) != null) {
+                sb.append(line).append("\n");
             }
-            
-            String fullLine = sb.toString();
-            JSONObject output = (JSONObject) parser.parse(fullLine);
-            	            
-        	return parsing.parseMonitoringData(output);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-        	e.printStackTrace();
         } finally {
-        	if (in != null) {
-        		try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        	}
-		}
-			
+            try {
+                stream.close();
+            } catch (IOException e) {
+            	e.printStackTrace();
+            }
+        }
+        
+        String fullLine = sb.toString();
+        JSONParser parser = new JSONParser();
+        JSONObject output;
+		try {
+			output = (JSONObject) parser.parse(fullLine);
+	        return parsing.parseMonitoringData(output);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}     	
+     
 		return null;
 	}
 	
