@@ -25,7 +25,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         super("PeriodicCheck");
     }
 
-	CheckStatus check = new CheckStatus();
+	private CheckStatus check;
 	RetrieveDataUtils retrieve = new RetrieveDataUtils();
 	
 	
@@ -33,7 +33,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	ClassLoader jenkins = Jenkins.getInstance().getPluginManager().uberClassLoader;
 	
 	//injection of Constraints implementation
-	public <T> T loadService(Class<T> service) {
+	private <T> T loadService(Class<T> service) {
 		
 		T result = null;
 		@CheckForNull
@@ -50,7 +50,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		return result;
 	}
 	
-	public final Constraints constraints = loadService(Constraints.class);
+	private final Constraints constraints = loadService(Constraints.class);
 	
 	
     @Override
