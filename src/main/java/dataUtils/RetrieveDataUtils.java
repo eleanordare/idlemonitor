@@ -1,4 +1,4 @@
-package idleMonitor.idleMonitor;
+package dataUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,11 @@ import org.json.simple.parser.ParseException;
 
 public class RetrieveDataUtils {
 	
-	ParsingUtils parsing = new ParsingUtils();
+	public RetrieveDataUtils() {
+		parsing = new ParsingUtils();
+	}
+	
+	private ParsingUtils parsing;
 	
     @CheckForNull
     final Jenkins jenkins = Jenkins.getInstance();
@@ -34,7 +38,7 @@ public class RetrieveDataUtils {
 	 * parses instance's exposed data at {JENKINS}/api
 	 * to check for current activity
 	 */
-	public long getBusyExecutors() {
+	public long getBusyExecutors() throws Exception {
 		
 		if (jenkins != null) { url = jenkins.getRootUrl(); };
 		
@@ -56,6 +60,7 @@ public class RetrieveDataUtils {
 			  }
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	    
     	client.close();
@@ -63,13 +68,12 @@ public class RetrieveDataUtils {
     	return busyExecutors;
 	}
 	
-	
-	
+
 	/*
 	 * checks exposed data from Monitoring plugin at {JENKINS}/monitoring
 	 * for last time UI was hit
 	 */
-	public Date getLatestHit() {
+	public Date getLatestHit() throws ParseException, java.text.ParseException {
 		
 		if (jenkins != null) { url = jenkins.getRootUrl(); };
 				
@@ -104,9 +108,8 @@ public class RetrieveDataUtils {
 	        return parsing.parseMonitoringData(output);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}     	
-     
-		return null;
+			throw e;
+		}
 	}
 	
     

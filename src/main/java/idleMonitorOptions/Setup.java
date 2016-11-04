@@ -1,16 +1,16 @@
-package idleMonitor.idleMonitor;
+package idleMonitorOptions;
 
 import jenkins.model.Jenkins;
 
 import org.joda.time.Period;
 import org.kohsuke.stapler.StaplerRequest;
 
-public class Setup implements Constraints {
+public class Setup implements IdleMonitorOptions {
 	
 	public Setup() { };
 
-	final static Jenkins jenkins = Jenkins.getInstance();
-	final static StaplerRequest req = null;
+	final Jenkins jenkins = Jenkins.getInstance();
+	final StaplerRequest req = null;
 	
 	@Override
 	/*

@@ -1,4 +1,4 @@
-package idleMonitor.idleMonitor;
+package idleMonitor;
 
 import hudson.Plugin;
 

@@ -1,7 +1,6 @@
 package idleMonitor;
 
 import static org.junit.Assert.assertEquals;
-import idleMonitor.idleMonitor.ParsingUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
+
+import dataUtils.ParsingUtils;
 
 public class GetLatestHitTest {
 	

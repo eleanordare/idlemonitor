@@ -2,11 +2,12 @@ package idleMonitor;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import idleMonitor.idleMonitor.CheckStatus;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Test;
+
+import dataUtils.CheckStatus;
 
 
 public class CheckStatusTest {

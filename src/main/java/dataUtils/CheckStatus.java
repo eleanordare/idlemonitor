@@ -1,4 +1,4 @@
-package idleMonitor.idleMonitor;
+package dataUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
