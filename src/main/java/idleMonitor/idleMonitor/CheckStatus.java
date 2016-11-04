@@ -4,6 +4,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 
 public class CheckStatus {
+
+	public CheckStatus() {};
 	
 	/*
 	 * compares timeout period specified in Setup with last time UI was hit

@@ -25,8 +25,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
         super("PeriodicCheck");
     }
 
-	private CheckStatus check;
-	RetrieveDataUtils retrieve = new RetrieveDataUtils();
+	private CheckStatus check = new CheckStatus();
+	private RetrieveDataUtils retrieve = new RetrieveDataUtils();
 	
 	
 	@CheckForNull
@@ -59,7 +59,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
     	long busyExecutors = retrieve.getBusyExecutors();
 		Period period = constraints.getTimeoutPeriod();
 		DateTime latest = new DateTime(retrieve.getLatestHit());
-    	
+    			
 		if (!check.checkStatus(busyExecutors, latest, period)) {
 			constraints.shutdownJenkins();
 		}
