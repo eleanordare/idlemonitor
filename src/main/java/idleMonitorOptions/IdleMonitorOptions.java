@@ -1,8 +1,8 @@
-package idleMonitor.idleMonitor;
+package idleMonitorOptions;
 
 import org.joda.time.Period;
 
-public interface Constraints {
+public interface IdleMonitorOptions {
 
 	public long getPollingInterval();
 	

@@ -1,6 +1,7 @@
-package idleMonitor.idleMonitor;
+package dataUtils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class ParsingUtils {
 	}
 
 	
-	public Date parseMonitoringData(JSONObject input) {
+	public Date parseMonitoringData(JSONObject input) throws ParseException {
 		ArrayList<Date> dates = new ArrayList<Date>();
         JSONArray list = (JSONArray) input.get("list");
         for (Object o : list) {
@@ -33,6 +34,7 @@ public class ParsingUtils {
 				finalDate = dateFormat.parse(inputDate);
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
+				throw e;
 			}
         	dates.add(finalDate);
         }
