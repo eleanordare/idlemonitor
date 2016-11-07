@@ -10,8 +10,9 @@ ServiceLoader injects custom implementation of IdleMonitorOptions:
   - change the text in that file to the path of your implementation (i.e., idleMonitorOptions.Setup)
 
 Installation:
-  - download target/idleMonitor.hpi file OR download entire idleMonitor directory and `mvn package` then `mvn clean install` to get idleMonitor/target/idleMonitor.hpi
-  - copy idleMonitor.hpi to $JENKINS_HOME/plugins directory
+  - download entire idleMonitor directory and `mvn clean install` to get idleMonitor/target/idleMonitor.hpi
+  - copy target/idleMonitor.hpi to $JENKINS_HOME/plugins directory
+  - make sure that the Monitoring plugin is also included in the $JENKINS_HOME/plugins directory
   - restart Jenkins instance and plugin will be installed
 
 
