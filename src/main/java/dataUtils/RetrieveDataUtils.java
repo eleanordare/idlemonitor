@@ -38,7 +38,6 @@ public class RetrieveDataUtils {
 		if (jenkins != null) {
 			url = jenkins.getRootUrl();
 		}
-		;
 
 		Client client = ClientBuilder.newClient();
 		String destUrl = url + "/api/json?depth=1";
@@ -63,7 +62,6 @@ public class RetrieveDataUtils {
 		if (jenkins != null) {
 			url = jenkins.getRootUrl();
 		}
-		;
 
 		Client client = ClientBuilder.newClient();
 		String destUrl = url + "monitoring?format=json&period=tout";
