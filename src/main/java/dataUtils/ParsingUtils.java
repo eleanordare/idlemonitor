@@ -14,33 +14,31 @@ public class ParsingUtils {
 
 	public long parseJenkinsData(JSONObject input) {
 		JSONArray assignedLabels = (JSONArray) input.get("assignedLabels");
-        JSONObject assignedLabelsObj = (JSONObject) assignedLabels.get(0);
-        long busyExecutors = (long) assignedLabelsObj.get("busyExecutors");
-        
-        return busyExecutors;  
+		JSONObject assignedLabelsObj = (JSONObject) assignedLabels.get(0);
+		long busyExecutors = (long) assignedLabelsObj.get("busyExecutors");
+
+		return busyExecutors;
 	}
 
-	
 	public Date parseMonitoringData(JSONObject input) throws ParseException {
 		ArrayList<Date> dates = new ArrayList<Date>();
-        JSONArray list = (JSONArray) input.get("list");
-        for (Object o : list) {
-        	JSONObject out = (JSONObject) o;
-        	String lineDate = (String) out.get("startDate");
-        	String inputDate = lineDate.split(" ")[0];
-        	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        	Date finalDate = null;
+		JSONArray list = (JSONArray) input.get("list");
+		for (Object o : list) {
+			JSONObject out = (JSONObject) o;
+			String lineDate = (String) out.get("startDate");
+			String inputDate = lineDate.split(" ")[0];
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date finalDate = null;
 			try {
 				finalDate = dateFormat.parse(inputDate);
 			} catch (java.text.ParseException e) {
 				e.printStackTrace();
 				throw e;
 			}
-        	dates.add(finalDate);
-        }
-        
-        return Collections.max(dates);
+			dates.add(finalDate);
+		}
+
+		return Collections.max(dates);
 	}
-	
-	
+
 }

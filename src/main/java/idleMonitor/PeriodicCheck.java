@@ -27,7 +27,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	private CheckStatus check;
 	private RetrieveDataUtils retrieve;
 	private IdleMonitorOptions options;
-	
+
 	public PeriodicCheck() {
 		super("PeriodicCheck");
 		check = new CheckStatus();
@@ -39,10 +39,11 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	private <T> T loadService(Class<T> service) {
 
 		T result = null;
-		
+
 		@CheckForNull
-		ClassLoader jenkinsClassLoader = Jenkins.getInstance().getPluginManager().uberClassLoader;
-		
+		ClassLoader jenkinsClassLoader = Jenkins.getInstance()
+				.getPluginManager().uberClassLoader;
+
 		@CheckForNull
 		ServiceLoader<T> impl = ServiceLoader.load(service, jenkinsClassLoader);
 
@@ -73,7 +74,6 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
