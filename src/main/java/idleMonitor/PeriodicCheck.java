@@ -26,20 +26,23 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 
 	private CheckStatus check;
 	private RetrieveDataUtils retrieve;
+	private IdleMonitorOptions options;
 	
 	public PeriodicCheck() {
 		super("PeriodicCheck");
 		check = new CheckStatus();
 		retrieve = new RetrieveDataUtils();
+		options = loadService(IdleMonitorOptions.class);
 	}
-
-	@CheckForNull
-	ClassLoader jenkinsClassLoader = Jenkins.getInstance().getPluginManager().uberClassLoader;
 
 	// injection of Constraints implementation
 	private <T> T loadService(Class<T> service) {
 
 		T result = null;
+		
+		@CheckForNull
+		ClassLoader jenkinsClassLoader = Jenkins.getInstance().getPluginManager().uberClassLoader;
+		
 		@CheckForNull
 		ServiceLoader<T> impl = ServiceLoader.load(service, jenkinsClassLoader);
 
@@ -56,18 +59,16 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		return result;
 	}
 
-	private final IdleMonitorOptions constraints = loadService(IdleMonitorOptions.class);
-
 	@Override
 	protected void execute(TaskListener taskListener) throws IOException {
 
 		long busyExecutors;
 		try {
 			busyExecutors = retrieve.getBusyExecutors();
-			Period period = constraints.getTimeoutPeriod();
+			Period period = options.getTimeoutPeriod();
 			DateTime latest = new DateTime(retrieve.getLatestHit());
 			if (!check.checkStatus(busyExecutors, latest, period)) {
-				constraints.shutdownJenkins();
+				options.shutdownJenkins();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +83,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	 */
 	@Override
 	public long getRecurrencePeriod() {
-		return constraints.getPollingInterval();
+		return options.getPollingInterval();
 	}
 
 }
