@@ -1,10 +1,5 @@
 package dataUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
@@ -52,7 +47,7 @@ public class RetrieveDataUtils {
 				.accept(MediaType.APPLICATION_JSON).get();
 		String out = response.readEntity(String.class);
 		client.close();
-		
+
 		JSONParser parser = new JSONParser();
 		JSONObject output = (JSONObject) parser.parse(out);
 		return parsing.parseJenkinsData(output);
