@@ -35,7 +35,7 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 		options = loadService(IdleMonitorOptions.class);
 	}
 
-	// injection of Constraints implementation
+	// injection of idleMonitorOptions implementation
 	private <T> T loadService(Class<T> service) {
 
 		T result = null;
@@ -78,8 +78,8 @@ public class PeriodicCheck extends AsyncPeriodicWork {
 	}
 
 	/*
-	 * specified in implementation of Constraints interface, execute method is
-	 * run this often
+	 * specified in implementation of idleMonitorOptions interface,
+	 * execute method is run this often
 	 */
 	@Override
 	public long getRecurrencePeriod() {
