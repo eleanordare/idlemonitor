@@ -3,6 +3,7 @@ package idleMonitor;
 import hudson.Extension;
 import hudson.model.AsyncPeriodicWork;
 import hudson.model.TaskListener;
+import hudson.model.User;
 import idleMonitorOptions.IdleMonitorOptions;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.ServiceLoader;
 import javax.annotation.CheckForNull;
 
 import jenkins.model.Jenkins;
+import jenkins.security.ApiTokenProperty;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
