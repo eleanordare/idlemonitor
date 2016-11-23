@@ -23,16 +23,15 @@ public class RetrieveDataUtils {
 
 	public RetrieveDataUtils() {
 		parsing = new ParsingUtils();
-		u = User.get("admin");
-		t = u.getProperty(ApiTokenProperty.class);
 	}
 
 	private ParsingUtils parsing;
-	private User u;
-	private ApiTokenProperty t;
 
 	@CheckForNull
 	final Jenkins jenkins = Jenkins.getInstance();
+	
+	final User u = User.get("admin");
+	final ApiTokenProperty t = u.getProperty(ApiTokenProperty.class);
 
 	// can't be null for tests, execute method changes to real instance url
 	String url = "http://localhost:8080/";
