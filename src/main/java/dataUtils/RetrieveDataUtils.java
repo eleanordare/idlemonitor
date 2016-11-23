@@ -1,5 +1,7 @@
 package dataUtils;
 
+import hudson.model.User;
+
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
@@ -8,8 +10,10 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.DatatypeConverter;
 
 import jenkins.model.Jenkins;
+import jenkins.security.ApiTokenProperty;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,9 +23,13 @@ public class RetrieveDataUtils {
 
 	public RetrieveDataUtils() {
 		parsing = new ParsingUtils();
+		u = User.get("admin");
+		t = u.getProperty(ApiTokenProperty.class);
 	}
 
 	private ParsingUtils parsing;
+	private User u;
+	private ApiTokenProperty t;
 
 	@CheckForNull
 	final Jenkins jenkins = Jenkins.getInstance();
@@ -39,10 +47,16 @@ public class RetrieveDataUtils {
 			url = jenkins.getRootUrl();
 		}
 
+		String userAndToken = u.getId() + ":" + t.getApiToken();
+		String authHeaderName = "Authorization";
+		String authHeaderValue = "Basic "
+				+ DatatypeConverter.printBase64Binary(userAndToken.getBytes());
+
 		Client client = ClientBuilder.newClient();
-		String destUrl = url + "/api/json?depth=1";
+		String destUrl = url + "api/json?depth=1";
 		WebTarget routing = client.target(destUrl);
 		Response response = routing.request()
+				.header(authHeaderName, authHeaderValue)
 				.accept(MediaType.APPLICATION_JSON).get();
 		String out = response.readEntity(String.class);
 		client.close();
@@ -63,12 +77,19 @@ public class RetrieveDataUtils {
 			url = jenkins.getRootUrl();
 		}
 
+		String userAndToken = u.getId() + ":" + t.getApiToken();
+		String authHeaderName = "Authorization";
+		String authHeaderValue = "Basic "
+				+ DatatypeConverter.printBase64Binary(userAndToken.getBytes());
+
 		Client client = ClientBuilder.newClient();
 		String destUrl = url + "monitoring?format=json&period=tout";
 		WebTarget routing = client.target(destUrl);
 		Response response = routing.request()
+				.header(authHeaderName, authHeaderValue)
 				.accept(MediaType.APPLICATION_JSON).get();
 		String out = response.readEntity(String.class);
+		client.close();
 
 		JSONParser parser = new JSONParser();
 		JSONObject output = (JSONObject) parser.parse(out);
