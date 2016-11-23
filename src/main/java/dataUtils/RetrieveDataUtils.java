@@ -30,12 +30,21 @@ public class RetrieveDataUtils {
 	@CheckForNull
 	final Jenkins jenkins = Jenkins.getInstance();
 	
-	final User u = User.get("admin");
-	final ApiTokenProperty t = u.getProperty(ApiTokenProperty.class);
-
 	// can't be null for tests, execute method changes to real instance url
 	String url = "http://localhost:8080/";
 
+	private String getAuthHeader() {
+		
+		User u = User.get("admin");
+		ApiTokenProperty t = u.getProperty(ApiTokenProperty.class);
+		
+		String userAndToken = u.getId() + ":" + t.getApiToken();
+		String authHeaderValue = "Basic "
+				+ DatatypeConverter.printBase64Binary(userAndToken.getBytes());
+		
+		return authHeaderValue;
+	}
+	
 	/*
 	 * parses instance's exposed data at {JENKINS}/api to check for current
 	 * activity
@@ -45,17 +54,12 @@ public class RetrieveDataUtils {
 		if (jenkins != null) {
 			url = jenkins.getRootUrl();
 		}
-
-		String userAndToken = u.getId() + ":" + t.getApiToken();
-		String authHeaderName = "Authorization";
-		String authHeaderValue = "Basic "
-				+ DatatypeConverter.printBase64Binary(userAndToken.getBytes());
-
+		
 		Client client = ClientBuilder.newClient();
 		String destUrl = url + "api/json?depth=1";
 		WebTarget routing = client.target(destUrl);
 		Response response = routing.request()
-				.header(authHeaderName, authHeaderValue)
+				.header("Authorization", getAuthHeader())
 				.accept(MediaType.APPLICATION_JSON).get();
 		String out = response.readEntity(String.class);
 		client.close();
@@ -76,16 +80,11 @@ public class RetrieveDataUtils {
 			url = jenkins.getRootUrl();
 		}
 
-		String userAndToken = u.getId() + ":" + t.getApiToken();
-		String authHeaderName = "Authorization";
-		String authHeaderValue = "Basic "
-				+ DatatypeConverter.printBase64Binary(userAndToken.getBytes());
-
 		Client client = ClientBuilder.newClient();
 		String destUrl = url + "monitoring?format=json&period=tout";
 		WebTarget routing = client.target(destUrl);
 		Response response = routing.request()
-				.header(authHeaderName, authHeaderValue)
+				.header("Authorization", getAuthHeader())
 				.accept(MediaType.APPLICATION_JSON).get();
 		String out = response.readEntity(String.class);
 		client.close();
