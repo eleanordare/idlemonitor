@@ -1,5 +1,5 @@
-Jenkins IdleMonitor
-====================
+Jenkins IdleMonitor plugin
+===========================
 
 Installation
 ------------
